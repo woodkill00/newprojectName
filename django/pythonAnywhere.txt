@@ -55,14 +55,17 @@ Now follow the following steps:
 Step 1: Open a bash terminal on PythonAnywhere.
 
 Step 2: Issue the following command:
-$ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+$ ssh-keygen -t rsa -b 4096 -C "thejunkmailvoid@gmail.com"
 after this command you will be shown the following prompt:
 > Generating public/private rsa key pair.
+
 Step 3: When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location.
 > Enter a file in which to save the key (/home/you/.ssh/id_rsa): [Press enter]
+
 Step 4: At the prompt, type a secure passphrase.
 > Enter passphrase (empty for no passphrase): [Type a passphrase]
 > Enter same passphrase again: [Type passphrase again]
+
 Step 5: Issue the following command on the bash terminal of PythonAnywhere to get your key.
 $ cat ~/.ssh/id_rsa.pub 
 then press CTRL+C to copy the key.
@@ -94,7 +97,7 @@ Go to your PythonAnywhere account and go to the bash terminal and setup your Web
 Note: I would suggest to use the automated script pa_autoconfigure_django.py available in pythonanywhere package which can be installed via pip to automatically setup my project on PythonAnywhere.
 
 If you already have a project setup on PythonAnywhere using HTTPS then open a bash terminal and edit the remote URL to set SSH by using the following command :
-$ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+$ git remote set-url origin https://github.com/woodkill00/newprojectName.git
 Seventh:
 Go back to the settings tab of your Repository on GitHub and follow the following steps :
 
