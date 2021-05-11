@@ -11,26 +11,26 @@
                 </div>
             </div>
 
-            <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+            {% comment %} <div class="col-6 col-md-4 order-3 order-md-3 text-right">
                 <div class="site-top-icons">
                     <ul>
                         <li>
-                            {% if request.user.is_authenticated %}
+                            {% if request.user.is_authenticated %} {% endcomment %}
                                 {% comment %} <a href="{% url 'profile' %}"><span><i class="fas fa-user"></i></span></a> {% endcomment %}
-                                <a href="#"><span><i class="fas fa-user"></i></span></a>
+                                {% comment %} <a href="#"><span><i class="fas fa-user"></i></span></a>
                             {% else %}
-                                <a href="#"><span><i
+                                <a href="#"><span><i {% endcomment %}
                                 {% comment %} <a href="{% url 'account_login' %}"><span><i {% endcomment %}
-                                        class="fas fa-sign-in-alt"></i></span></a>
+                                        {% comment %} class="fas fa-sign-in-alt"></i></span></a>
                             {% endif %}
                         </li>
                         <li>
-                            <a href="#" class="site-cart">
+                            <a href="#" class="site-cart"> {% endcomment %}
                             {% comment %} <a href="{% url 'cart:summary' %}" class="site-cart"> {% endcomment %}
-                                <span><i class="fas fa-shopping-cart"></i></span>
-                                <span class="count"></span>
+                                {% comment %} <span><i class="fas fa-shopping-cart"></i></span>
+                                <span class="count"></span> {% endcomment %}
                                 {% comment %} <span class="count">{{ request|cart_item_count }}</span> {% endcomment %}
-                            </a>
+                            {% comment %} </a>
                         </li>
                         <li class="d-inline-block d-md-none ml-md-0">
                             <a href="#" class="site-menu-toggle js-menu-toggle">
@@ -39,7 +39,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> {% endcomment %}
 
         </div>
     </div>

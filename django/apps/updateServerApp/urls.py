@@ -5,5 +5,5 @@ from apps.updateServerApp import views
 app_name = 'updateServerApp'
 
 urlpatterns = [
-    path("update_server/", views.update, name="update-server"),
+    path("updateServer/", views.update, name="update-server"),
 ]

@@ -129,3 +129,5 @@ If you get any response code other than 200 then go to the error log on your Pyt
 The most common mistake that I make is when I return something else instead of HttpResponse it will throw some Attribute error.
 
 If you get stuck somewhere then feel free to contact me on telegram using the link https://t.me/soumya_r .
+
+
