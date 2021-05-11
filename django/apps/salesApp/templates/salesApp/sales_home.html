@@ -1,0 +1,77 @@
+{% extends 'mainApp/mainApp_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block scriptsT %}
+<script src="{% static 'salesApp/js/sales_home.js' %}"></script>
+<link rel="stylesheet" href="{% static 'salesApp/css/sales_app_styles.css' %}">
+
+
+{% endblock %}
+
+{% block head_title %}
+Sales
+{% endblock head_title %}
+
+{% block content %}
+<div>
+  <h2>Sales Search</h2>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Report</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <div id="alert-box"></div>
+            <form id="report-form" autocomplete="off" method="POST">
+                {% csrf_token %}
+                {{ report_form|crispy }}
+                <button type="submit" class="btn btn-dark mt-3">Submit</button>
+            </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if no_data %}
+    <div class="alert alert-warning" role="alert">
+        {{no_data}}
+    </div>
+{% endif %}
+
+<hr>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ search_form|crispy }}
+    <button type="submit" class="btn btn-dark mt-3">Search</button>
+</form>
+
+<br>
+{% if sales_df %}
+    Sales DF
+    {{sales_df|safe}}
+    <br>
+    Positions DF
+    {{positions_df|safe}}
+    <br>
+    Merged DF
+    {{merged_df|safe}}
+    <br>
+    Grouped By DF
+    {{df|safe}}
+    <br>
+    {% comment %} Chart DF
+    <img src="data:image/png;base64, {{chart|safe}}" id='img'> {% endcomment %}
+{% endif %}
+
+<button class="btn btn-dark not-visible m-2" id="report-btn" data-bs-toggle="modal" data-bs-target="#reportModal">add Report</button>
+{% endblock content %}
+
+{% block scripts %}
+{% comment %} <script src="{% static 'sales_app/sales_home.js' %}"></script> {% endcomment %}
+{% endblock %}

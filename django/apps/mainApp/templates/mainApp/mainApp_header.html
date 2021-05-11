@@ -1,0 +1,46 @@
+{% load static %}
+<header class="site-navbar-top">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-6 col-md-8 mb-3 mb-md-0 col-md-4 order-1 order-md-2">
+                <div>
+                    <a href="#">
+                    {% comment %} <a href="{% url 'Home' %}"> {% endcomment %}
+                        <img class="img-fluid" src="{% static 'mainApp/img/logo.png' %}" style="max-width: 150px;"/>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+                <div class="site-top-icons">
+                    <ul>
+                        <li>
+                            {% if request.user.is_authenticated %}
+                                {% comment %} <a href="{% url 'profile' %}"><span><i class="fas fa-user"></i></span></a> {% endcomment %}
+                                <a href="#"><span><i class="fas fa-user"></i></span></a>
+                            {% else %}
+                                <a href="#"><span><i
+                                {% comment %} <a href="{% url 'account_login' %}"><span><i {% endcomment %}
+                                        class="fas fa-sign-in-alt"></i></span></a>
+                            {% endif %}
+                        </li>
+                        <li>
+                            <a href="#" class="site-cart">
+                            {% comment %} <a href="{% url 'cart:summary' %}" class="site-cart"> {% endcomment %}
+                                <span><i class="fas fa-shopping-cart"></i></span>
+                                <span class="count"></span>
+                                {% comment %} <span class="count">{{ request|cart_item_count }}</span> {% endcomment %}
+                            </a>
+                        </li>
+                        <li class="d-inline-block d-md-none ml-md-0">
+                            <a href="#" class="site-menu-toggle js-menu-toggle">
+                                <span><i class="fas fa-bars"></i></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+  </header>

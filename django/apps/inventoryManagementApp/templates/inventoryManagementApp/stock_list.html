@@ -1,0 +1,71 @@
+{% extends "mainApp/mainApp_base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="site-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <h2 class="text-black">Staff Portal - Stock Items</h2>
+                {% comment %} <a href="#">Create a Stock Item</a> {% endcomment %}
+                <a href="{% url 'inventoryManagementApp:stock-create-item' %}">Create a Stock Item</a>
+                <form method="GET" action="{% url 'inventoryManagementApp:stock-list' %}">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input name="q" type="text" placeholder="Search..." />
+                    {% comment %} <button type="submit">Search</button> {% endcomment %}
+                </form>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="site-blocks-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Item Name.</th>
+                                        <th>Category</th>
+                                        <th>Quantity</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for stock in stocks %}
+                                    <tr>
+                                        <td><a href="{% url 'inventoryManagementApp:stock-update-item' stock.pk %}">{{ stock.item_name }}</a></td>
+                                        <td>{{ stock.category }}</td>
+                                        <td>
+                                            {% comment %} <a href="{{ product.get_update_url }}">Update</a> {% endcomment %}
+                                            {% comment %} <a tabindex="0" class="btn btn-sm btn-primary" role='button' {% endcomment %}
+                                                {% comment %} data-html='true' data-toggle='popover' data-trigger='focus' {% endcomment %}
+                                                {% comment %} title='Are you sure you want to delete this product?' {% endcomment %}
+                                                {% comment %} data-content="<a href='{{ product.get_delete_url }}'>Confirm</a>"> {% endcomment %}
+                                                {% comment %} X {% endcomment %}
+                                            {% comment %} </a> {% endcomment %}
+                                            {{ stock.quantity }}
+                                        </td>
+                                        <td><a href="{% url 'inventoryManagementApp:stock-delete-item' stock.pk %}" class="btn btn-danger">Delete</a></td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="3">You don't have any stock items</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    $(function () {
+        $("[data-toggle=popover]").popover();
+    });
+</script>
+{% endblock scripts %}

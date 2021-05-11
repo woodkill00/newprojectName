@@ -1,0 +1,36 @@
+{% extends "mainApp/mainApp_base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="site-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <h2 class="text-black">Staff Portal - Stock Item Update</h2>
+                {% comment %} <a href="#">Create a Stock Item</a> {% endcomment %}
+                {% comment %} <a href="{% url 'staff:product-create' %}">Create a product</a> {% endcomment %}
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% comment %} {{ form.as_p }} {% endcomment %}
+                            {{form|crispy}}
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    $(function () {
+        $("[data-toggle=popover]").popover();
+    });
+</script>
+{% endblock scripts %}

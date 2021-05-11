@@ -1,0 +1,6 @@
+[run]
+source =
+    C:/Users/chadw/main/coding/projects/django/projectName/
+    C:/Users/chadw/main/coding/projects/django/projectName/django
+omit =
+    C:/Users/chadw/.virtualenvs/django-rhOOzF0P/*

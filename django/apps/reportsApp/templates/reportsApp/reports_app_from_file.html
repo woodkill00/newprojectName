@@ -1,0 +1,41 @@
+{% extends 'mainApp/mainApp_base.html' %}
+{% load static %}
+
+{% block scriptsT %}
+    <link rel="stylesheet" href="{% static 'reportsApp/css/reports_app_styles.css' %}">
+    <script src="{% static 'reportsApp/js/reports_app_upload.js' %}" defer></script>
+    <!-- Dropzone js -->
+    <link rel="stylesheet" href="{% static 'mainApp/css/dropzone/dropzone.css' %}">
+    <script src="{% static 'mainApp/js/dropzone/dropzone.js' %}" defer></script>
+
+{% endblock scriptsT %}
+
+{% block head_title %}
+Sale File Upload
+{% endblock head_title %}
+
+{% block content %}
+<h5>Upload your sales documents</h5>
+<br>
+<div id="alert-box"></div>
+
+
+<div class="card mb-3">
+    <form id="my-dropzone" class="dropzone dz">
+        {% csrf_token %}
+        <div class="fallback">
+            <input name="file" type="file" multiple />
+        </div>
+    </form>
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+  </div>
+</div>
+
+
+
+
+
+{% endblock content %}

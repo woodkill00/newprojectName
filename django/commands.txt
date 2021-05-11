@@ -1,0 +1,50 @@
+django-admin startproject config .
+python manage.py startapp {appName}
+
+python manage.py makemigrations --dry-run --verbosity 3
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+python manage.py createsuperuser
+
+--- Testing
+ python manage.py test apps.pollsApp {appName} 
+
+--- Language
+django-admin makemessages
+django-admin makemessages -l en
+
+
+--- DJANGO SRC file locations
+['C:\\Users\\chadw\\.virtualenvs\\django-rhOOzF0P\\lib\\site-packages\\django']
+--- find with 
+py -c "import django; print(django.__path__)"
+
+--- admin file locations
+django/contrib/admin/templates
+
+
+pipenv install coverage
+
+coverage run --omit='*/.virtualenvs/' manage.py test
+coverage run --omit='*/Users*/' manage.py test
+coverage html --omit='*/.virtualenvs/'
+coverage html --omit='Users*/*'
+_Users_chadw__virtualenvs_djRest--kGi66X1_Lib_site-packages__virtualenv_py.html
+
+pipenv install djangorestframework
+
+If localized URLs get reversed in templates they always use the current language.
+To link to a URL in another language use the language template tag.
+It enables the given language in the enclosed template section:
+{% load i18n %}
+
+{% get_available_languages as languages %}
+
+{% translate "View this category in:" %}
+{% for lang_code, lang_name in languages %}
+    {% language lang_code %}
+    <a href="{% url 'category' slug=category.slug %}">{{ lang_name }}</a>
+    {% endlanguage %}
+{% endfor %}
+

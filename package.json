@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "mocha": "^8.4.0",
+    "sqlite3": "^5.0.2"
+  }
+}

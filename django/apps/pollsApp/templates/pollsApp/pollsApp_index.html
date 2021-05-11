@@ -1,0 +1,21 @@
+{% extends 'mainApp/mainApp_base.html' %}
+{% load static %}
+
+{% block scriptsT %}
+{% comment %} <link rel="stylesheet" type="text/css" href="{% static 'pollsApp/css/pollsApp_styles.css' %}"> {% endcomment %}
+{% endblock scriptsT %}
+
+{% block content %}
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="{% url 'apps.pollsApp:polls-detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+{% endblock content %}
+
+
+
