@@ -29,6 +29,7 @@ urlpatterns = [
     # path('accounts/', include('allauth.urls')),
     # (Note that this example makes the view available at /i18n/setlang/.)
     path('i18n/', include('django.conf.urls.i18n')),
+    path('', include('apps.updateServerApp.urls', namespace="updateServer_app")),
 ]
 
 urlpatterns += i18n_patterns(

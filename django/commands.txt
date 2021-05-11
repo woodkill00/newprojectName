@@ -23,7 +23,7 @@ py -c "import django; print(django.__path__)"
 --- admin file locations
 django/contrib/admin/templates
 
-
+pipenv lock -r > requirements.txt
 pipenv install coverage
 
 coverage run --omit='*/.virtualenvs/' manage.py test

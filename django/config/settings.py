@@ -54,7 +54,7 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['woodkill.pythonanywhere.com', '127.0.0.1']
 
 INTERNAL_IPS = ('127.0.0.1', '0.0.0.0', 'localhost',)
 
@@ -106,6 +106,7 @@ INSTALLED_APPS = [
 
     # APPS
     'apps.userApp',
+    'apps.updateServerApp',
     'apps.mainApp',
     'apps.customerApp',
     'apps.inventoryManagementApp',

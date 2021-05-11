@@ -1,0 +1,128 @@
+
+
+### Automatically deploying Django app to PythonAnywhere through GitHub ###
+First:
+Install the Python package named GitPython by using the following command:
+$ pip install GitPython
+Second:
+Write the view function that will receive the update and update the code on the server.
+
+Go to your views.py and add the following code:
+import git
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def update(request):
+    if request.method == "POST":
+        '''
+        pass the path of the diectory where your project will be 
+        stored on PythonAnywhere in the git.Repo() as parameter.
+        Here the name of my directory is "test.pythonanywhere.com"
+        '''
+        repo = git.Repo("woodkill.pythonanywhere.com/") 
+        origin = repo.remotes.origin
+
+        origin.pull()
+
+        return HttpResponse("Updated code on PythonAnywhere")
+    else:
+        return HttpResponse("Couldn't update the code on PythonAnywhere")
+You can also send response codes with them by passing the parameter "status" within the "HttpResponse" that will be returned.
+
+Third:
+Set the URL where the Payload from GitHub will be sent.
+
+To add the payload URL add the following lines into urls.py file of your Django Project:
+from django.urls import path
+
+'''
+here the name of my app is updater so I add the import my view from there
+replace updater with your app-name where you have your views.py
+'''
+from updater import views
+
+urlpatterns = [
+    path("update_server/", views.update, name="update"),
+]
+
+Fourth:
+Now push this code to GitHub and login to our account on PythonAnywhere.
+
+Now follow the following steps:
+
+Step 1: Open a bash terminal on PythonAnywhere.
+
+Step 2: Issue the following command:
+$ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+after this command you will be shown the following prompt:
+> Generating public/private rsa key pair.
+Step 3: When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location.
+> Enter a file in which to save the key (/home/you/.ssh/id_rsa): [Press enter]
+Step 4: At the prompt, type a secure passphrase.
+> Enter passphrase (empty for no passphrase): [Type a passphrase]
+> Enter same passphrase again: [Type passphrase again]
+Step 5: Issue the following command on the bash terminal of PythonAnywhere to get your key.
+$ cat ~/.ssh/id_rsa.pub 
+then press CTRL+C to copy the key.
+
+Fifth:
+Go to your GitHub Account and then Go to the Repository in which you have your Django Project.
+
+Then follow the following steps:
+
+Step 1: From your repository, click Settings as shown below.
+
+Alt Text
+
+Step 2: In the sidebar, click Deploy Keys, then click Add deploy key.
+
+Alt Text
+
+Step 3: Provide a title, paste in your public key.
+
+Alt Text
+
+Step 4: Select Allow write access if you want this key to have write access to the repository. A deploy key with write access lets a deployment push to the repository.
+
+Step 5: Click Add key.
+
+Sixth:
+Go to your PythonAnywhere account and go to the bash terminal and setup your Web-App but use the SSH instead of HTTPS for cloning your Repository from GitHub.
+
+Note: I would suggest to use the automated script pa_autoconfigure_django.py available in pythonanywhere package which can be installed via pip to automatically setup my project on PythonAnywhere.
+
+If you already have a project setup on PythonAnywhere using HTTPS then open a bash terminal and edit the remote URL to set SSH by using the following command :
+$ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+Seventh:
+Go back to the settings tab of your Repository on GitHub and follow the following steps :
+
+Step 1: In the sidebar, click Webhooks, then click Add webhook.
+
+Alt Text
+
+Step 2: Fill in the Payload URL and set the "Content type" to "application/json" as shown below.
+
+Alt Text
+
+Step 3: click "Add webhook".
+
+Finally:
+You will see the following when it is success
+
+Alt Text
+
+If it show some other icon in place of a green tick then click on edit and at the bottom you can see the "Recent Deliveries" here you can click on the button shown below to see the details of that delivery.
+
+Alt Text
+
+After clicking you will see two tabs "Request" and "Response" to see the details of failure you can click on response and you will get the details as shown below
+
+Alt Text
+
+If you get any response code other than 200 then go to the error log on your PythonAnywhere account and check what's the problem.
+
+The most common mistake that I make is when I return something else instead of HttpResponse it will throw some Attribute error.
+
+If you get stuck somewhere then feel free to contact me on telegram using the link https://t.me/soumya_r .

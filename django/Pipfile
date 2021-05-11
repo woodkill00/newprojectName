@@ -29,6 +29,7 @@ coverage = "*"
 django-debug-toolbar = "*"
 gunicorn = "*"
 whitenoise = "*"
+gitpython = "*"
 
 [requires]
 python_version = "3.9"

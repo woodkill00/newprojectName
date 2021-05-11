@@ -1,10 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/django,python,vim
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,python,vim
 
-
 ### NPM ###
-node_modules/
-django/node_modules/
+*node_modules/
+*django/node_modules/
 
 ### Django ###
 *.log
@@ -14,7 +13,7 @@ __pycache__/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-media
+# media
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
