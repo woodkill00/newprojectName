@@ -1,0 +1,13 @@
+### GIT ###
+git init -b main
+git add .
+git commit -m "First commit"
+git remote add origin  <REMOTE_URL>
+git remote -v
+git push origin main
+
+
+
+**** vs code can't push refs to remote. try running 'Pull' first to integrate your changes ***
+git pull --rebase origin branchname
+git push origin branchname

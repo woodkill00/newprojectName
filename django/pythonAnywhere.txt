@@ -1,4 +1,23 @@
+### PYTHON ANYWHERE ###
+-- @ dashboard new bash console
+-- git clone https://github.com/woodkill00/newprojectName.git
+-- mkvirtualenv --python=/usr/bin/python3.8 mysite-virtualenv
+-- pip install django ## # may take a long time to install
+-- @ WEB TAB - create new web app - under manaual configuration
+    -- select your python version same as env
+    -- configure virtualenv - enter the path to the env - mysite-virtualenv
+    -- WSGI config - click location on python-ANYWHERE
+    import os
+    import sys
 
+    path = '/home/woodkill/projectName/django/'
+    if path not in sys.path:
+        sys.path.insert(0, path)
+
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings'
+
+    from django.core.wsgi import get_wsgi_application
+    application = get_wsgi_application()
 
 ### Automatically deploying Django app to PythonAnywhere through GitHub ###
 First:
@@ -129,5 +148,89 @@ If you get any response code other than 200 then go to the error log on your Pyt
 The most common mistake that I make is when I return something else instead of HttpResponse it will throw some Attribute error.
 
 If you get stuck somewhere then feel free to contact me on telegram using the link https://t.me/soumya_r .
+
+
+Auto-reloading your webapp
+We’re going to use git hooks to do it. These are shell commands executed after a git event takes place. There’s no post-pull hook, but…
+
+We take advantage of the fact that a git pull is nothing but a git fetch → git merge and there is a post-merge hook. It executes if the pull completed successfully.
+
+In your git repo over at PythonAnywhere go to .git/hooks/
+
+There will be a bunch of pre-existing ones but make a new file called post-merge.
+
+Put the following code there:
+#!/bin/sh
+# touch /path/to/username_pythonanywhere_com_wsgi.py
+touch /var/www/woodkill_pythonanywhere_com_wsgi.py
+Use the path to your wsgi file which when touched, reloads your webapp.
+
+Now to make this executable, open a bash console there and run
+
+chmod +x post-merge
+
+That’s it, now you can test that it works by making a sample commit.
+
+Most importantly, now we move on to securing your webhook.
+
+
+Securing your webhook
+This is necessary so that someone else cannot spam your server with requests to update it.
+
+We follow this guide for it https://developer.github.com/webhooks/securing/
+
+
+from dotenv import load_dotenv
+# project_folder = os.path.expanduser('~/my-project-dir')  # adjust as appropriate
+project_folder = os.path.expanduser('~/home/woodkill/newprojectName/django/')
+load_dotenv(os.path.join(project_folder, '.env'))
+
+
+
+
+First off, export that secret token and add it to PythonAnywhere as an environment variable as well as in the Secret field in your GitHub webhook settings. This might be helpful https://help.pythonanywhere.com/pages/environment-variables-for-web-apps
+
+Now, GitHub lists their method in Ruby but we use Python so while the method is same, here is the comparison function:
+
+import hmac
+import hashlib
+
+def is_valid_signature(x_hub_signature, data, private_key):
+    # x_hub_signature and data are from the webhook payload
+    # private key is your webhook secret
+    hash_algorithm, github_signature = x_hub_signature.split('=', 1)
+    algorithm = hashlib.__dict__.get(hash_algorithm)
+    encoded_key = bytes(private_key, 'latin-1')
+    mac = hmac.new(encoded_key, msg=data, digestmod=algorithm)
+    return hmac.compare_digest(mac.hexdigest(), github_signature)
+view rawcheck_signature.py hosted with ❤ by GitHub
+Now, modify your update_server route to check if signature is valid by adding these lines before the updation part of your route:
+x_hub_signature = request.headers.get(‘X-Hub-Signature’)
+
+if not is_valid_signature(x_hub_signature, request.data, w_secret):
+w_secret is supposed to be your webhooks secret that you set as an environment variable.
+
+Now it doesn’t make much sense to have no logging as well as no other security checks to verify that the webhook is in fact from GitHub or that the pull event actually contained data, so you can go and copy paste the route on my repo that contains all that into your own and modify it for yourself where necessary, you already know the important parts by now 😃
+
+I hope this was helpful, I know it’s a bit detailed but I wanted you to know what’s happening. If you found it too long, you could get away with copy pasting a lot of it after configuring the webhook over at GitHub and making the git hook.
+
+I obviously didn’t come up with it myself, rather I’d say I just cherry picked the right parts from the right places and experimented in the hope that this can be a complete resource.
+
+Here are the references so you can know and do more with it.
+
+https://stackoverflow.com/a/54268132/9044659 (basic setup)
+https://developer.github.com/webhooks/ (GitHub webhooks documentation)
+https://github.com/CCExtractor/sample-platform/blob/master/mod_deploy/controllers.py (detailed implementation with better checks, in case you want to go all in)
+https://github.com/SwagLyrics/swaglyrics-issue-maker/blob/35d23d0ba416e742e381da931d592ce6f58fc13f/issue_maker.py#L268 (my own route to update PythonAnywhere)
+https://github.com/SwagLyrics/SwagLyrics-For-Spotify (this is where I use it, shameless repo plug to get stars ❤️)
+Please let me know if there is any part that can be improved or made easier to understand.
+
+Thanks a lot for reading!
+
+P. S. I did stay up way late doing this, the things we do for science sigh
+
+
+
+
 
 
