@@ -1,8 +1,27 @@
 ### PYTHON ANYWHERE ###
+
+info from PythonAnywhere -
+Source code:
+/home/woodkill/newprojectName/
+
+Working directory:
+/home/woodkill/
+
+WSGI configuration file:/var/www/woodkill_pythonanywhere_com_wsgi.py
+
+
+URL	        Directory
+/static/	/home/woodkill/newprojectName/django/static_root/
+
+
+
+
+
 -- @ dashboard new bash console
 -- git clone https://github.com/woodkill00/newprojectName.git
 -- mkvirtualenv --python=/usr/bin/python3.8 mysite-virtualenv
 -- pip install django ## # may take a long time to install
+-- pip install -r requirements.txt
 -- @ WEB TAB - create new web app - under manaual configuration
     -- select your python version same as env
     -- configure virtualenv - enter the path to the env - mysite-virtualenv
@@ -10,7 +29,7 @@
     import os
     import sys
 
-    path = '/home/woodkill/projectName/django/'
+    path = '/home/woodkill/newprojectName/django/'
     if path not in sys.path:
         sys.path.insert(0, path)
 
@@ -18,6 +37,15 @@
 
     from django.core.wsgi import get_wsgi_application
     application = get_wsgi_application()
+
+
+
+-- add .env file to django dir
+-- python manage.py migrate
+-- python manage.py collectstatic
+-- python manage.py createsuperuser
+
+
 
 ### Automatically deploying Django app to PythonAnywhere through GitHub ###
 First:
@@ -48,6 +76,7 @@ def update(request):
         return HttpResponse("Updated code on PythonAnywhere")
     else:
         return HttpResponse("Couldn't update the code on PythonAnywhere")
+
 You can also send response codes with them by passing the parameter "status" within the "HttpResponse" that will be returned.
 
 Third:
@@ -63,7 +92,7 @@ replace updater with your app-name where you have your views.py
 from updater import views
 
 urlpatterns = [
-    path("update_server/", views.update, name="update"),
+    path("updateServer/", views.update, name="update"),
 ]
 
 Fourth:
