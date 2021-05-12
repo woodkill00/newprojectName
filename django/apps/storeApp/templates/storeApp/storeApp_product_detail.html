@@ -1,6 +1,5 @@
 {% extends "mainApp/mainApp_base.html" %}
 {% load crispy_forms_tags %}
-
 {% block content %}
 
 <div class="bg-light py-3">
@@ -10,7 +9,7 @@
                 <a href="#">Home</a>
                 {% comment %} <a href="{% url 'home' %}">Home</a> {% endcomment %}
                 <span class="mx-2 mb-0">/</span>
-                <strong class="text-black">Contact</strong>
+                <strong class="text-black">{{ product.title }}</strong>
             </div>
         </div>
     </div>
@@ -18,20 +17,26 @@
 
 <div class="site-section">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-7">
-                <h2 class="h3 mb-3 text-black">Get in touch</h2>
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <img src="{{ product.image.url }}" class="img-fluid">
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
+                <h2 class="text-black">{{ product.title }}</h2>
+                <p>{{ product.description }}</p>
+                <p>Available stock: {{ product.stock }} units</p>
+                {% if product.in_stock %}
                 <form method="POST">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit message" />
+                    <button type='submit' class="btn btn-sm btn-primary buy-now">Add to cart</button>
                 </form>
+                {% else %}
+                <p>This item is out of stock</p>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
-
 
 {% endblock content %}

@@ -6,6 +6,7 @@ from apps.inventoryManagementApp.forms import StockCreateForm, StockSearchForm
 from django.db.models import Q
 from .filters import StockFilter
 from apps.userApp.models import CustomUser
+from apps.productApp.models import Product
 
 
 # Create your views here.

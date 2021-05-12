@@ -113,7 +113,8 @@ INSTALLED_APPS = [
     'apps.productApp',
     'apps.reportsApp',
     'apps.salesApp',
-    # 'apps.storeApp',
+    'apps.staffApp',
+    'apps.storeApp',
     # 'apps.utilsApp',
     'apps.pollsApp',
     'apps.newsReaderApp',
@@ -305,13 +306,12 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #     ]
 # }
 
-# PAYPAL_CLIENT_ID = env('PAYPAL_SANDBOX_CLIENT_ID')
-# PAYPAL_SECRET_KEY = env('PAYPAL_SANDBOX_SECRET_KEY')
+PAYPAL_CLIENT_ID = env('PAYPAL_SANDBOX_CLIENT_ID')
+PAYPAL_SECRET_KEY = env('PAYPAL_SANDBOX_SECRET_KEY')
 
-# STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
-# STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
-STRIPE_SECRET_KEY = 'somekey'
-# STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET")
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
+STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET")
 
 if DEBUG is False:
     SESSION_COOKIE_AGE = 86400

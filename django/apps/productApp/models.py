@@ -88,7 +88,7 @@ class Product(models.Model):
         # return f"{self.title}-{self.created.strftime('%d/%m/%Y')}"
 
     def get_absolute_url(self):
-        return reverse("cart:product-detail", kwargs={'slug': self.slug})
+        return reverse("storeApp:product-detail", kwargs={'slug': self.slug})
 
     def get_update_url(self):
         return reverse("staff:product-update", kwargs={'pk': self.pk})

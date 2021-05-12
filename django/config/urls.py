@@ -21,6 +21,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from apps.mainApp import views
+from apps.userApp.views import ProfileView
 
 
 urlpatterns = [
@@ -45,6 +47,11 @@ urlpatterns += i18n_patterns(
     # path('user/', include('user_app.urls', namespace='user_app')),
     path('sales/', include('apps.salesApp.urls', namespace='sales_app')),
     path('reports/', include('apps.reportsApp.urls', namespace='reports_app')),
+    path('store/', include('apps.storeApp.urls', namespace='store_app')),
+    path('contact/', views.ContactView.as_view(), name='contact'),
+    path('staff/', include('apps.staffApp.urls', namespace='staff')),
+    path('profile/', ProfileView.as_view(), name='profile'),
+    # path('user/', include('apps.userApp.urls', namespace='user_app')),
 )
 
 

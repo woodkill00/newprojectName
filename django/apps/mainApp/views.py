@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.shortcuts import reverse
 from django.views import generic
-# from apps.cart.models import Order
+from apps.storeApp.models import Order
 from .forms import ContactForm
 
 # Create your views here.

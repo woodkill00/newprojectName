@@ -2,6 +2,7 @@
 {% comment %} {% url 'cart:product-list' as path_to_cart_product_list %} {% endcomment %}
 {% comment %} {% url 'contact' as path_to_contact %} {% endcomment %}
 {% comment %} {% url 'staff:staff' as path_to_staff %} {% endcomment %}
+{% url 'storeApp:product-list' as path_to_store_home %}
 {% url 'salesApp:sales_home' as path_to_sales_home %}
 {% url 'salesApp:sales_list' as path_to_sales_list %}
 {% url 'reportsApp:report-main' as path_to_report_main %}
@@ -28,7 +29,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#">Store</a>
+          <a class="nav-link {% if request.path == path_to_store_home %}active{% endif %}" href="{{ path_to_store_home}}">Store</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Contact</a>
