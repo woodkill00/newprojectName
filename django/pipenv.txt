@@ -2,3 +2,13 @@
 
 # Requirments.txt file create
 pipenv lock -r > requirements.txt
+
+
+# To remove the virtual environment
+pipenv --rm
+
+# To see dependencies
+pipenv graph
+
+
+
